@@ -1,5 +1,6 @@
 import Header from './components/Header';
 import HeroBanner from './sections/HeroBanner';
+import ProductsAndClients from './sections/ProductsAndClients';
 
 function App() {
   return (
@@ -7,6 +8,7 @@ function App() {
       <Header />
       <main>
         <HeroBanner />
+        <ProductsAndClients />
       </main>
     </div>
   );
