@@ -3,6 +3,7 @@ import React from 'react';
 const HeroBanner = (): React.ReactElement => {
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const [progress, setProgress] = React.useState(0);
+  const [isTransitioning, setIsTransitioning] = React.useState(false);
 
   // Sample farm images - replace with your actual images
   const slides = [
@@ -49,12 +50,20 @@ const HeroBanner = (): React.ReactElement => {
   ];
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-    setProgress(0);
+    setIsTransitioning(true);
+
+    // After transition completes, update slide and reset
+    setTimeout(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+      setIsTransitioning(false);
+      setProgress(0);
+    }, 1000); // Match transition duration
   };
 
   // Progress animation and auto-advance
   React.useEffect(() => {
+    if (isTransitioning) return; // Don't update progress during transition
+
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
@@ -68,32 +77,58 @@ const HeroBanner = (): React.ReactElement => {
     }, 100);
 
     return () => clearInterval(interval);
-  }, [currentSlide]);
+  }, [currentSlide, isTransitioning]);
 
   // Calculate border stroke-dasharray and stroke-dashoffset for progress
-  const borderLength = 2 * (184 + 120); // Updated perimeter for new dimensions
+  const borderLength = 2 * (184 + 120);
   const strokeDashoffset = borderLength - (borderLength * progress) / 100;
 
-  return (
-    <section
-      className='relative h-screen bg-cover bg-center transition-all duration-1000 ease-in-out'
-      style={{ backgroundImage: `url('${slides[currentSlide].image}')` }}
-    >
-      {/* Overlay for better text readability */}
-      <div className='absolute inset-0 bg-black/30'></div>
+  // Get next slide index for transition
+  const nextSlideIndex = (currentSlide + 1) % slides.length;
 
-      <div className='relative z-10 flex flex-col justify-center items-start h-full text-white px-6 max-w-7xl mx-auto'>
+  return (
+    <section className='relative h-screen overflow-hidden'>
+      {/* Current slide background */}
+      <div
+        className='absolute inset-0 bg-cover bg-center transition-none'
+        style={{ backgroundImage: `url('${slides[currentSlide].image}')` }}
+      />
+
+      {/* Single strip reveal transition overlay */}
+      {isTransitioning && (
+        <div className='absolute inset-0 z-5'>
+          <div
+            className='absolute inset-0 bg-cover bg-center'
+            style={{
+              backgroundImage: `url('${slides[nextSlideIndex].image}')`,
+              transform: 'scaleX(0)',
+              transformOrigin: 'center',
+              animation: 'singleStripReveal 1s ease-out forwards',
+            }}
+          />
+        </div>
+      )}
+
+      {/* Overlay for better text readability */}
+      <div className='absolute inset-0 bg-black/30 z-10'></div>
+
+      <div className='relative z-20 flex flex-col justify-center items-start h-full text-white px-6 max-w-7xl mx-auto'>
         {/* Welcome text */}
         <p className='text-lg font-light mb-4 opacity-90'>
           Welcome To TwinTwenty Farms
         </p>
 
-        {/* Main heading */}
-        <h1 className='text-6xl md:text-7xl lg:text-8xl font-bold leading-tight mb-8'>
-          {slides[currentSlide].title}
-          <br />
-          {slides[currentSlide].subtitle}
-        </h1>
+        {/* Main heading with transition animation */}
+        <div className='overflow-hidden'>
+          <h1
+            key={currentSlide} // Key change triggers re-animation
+            className='text-6xl md:text-7xl lg:text-8xl font-bold leading-tight mb-8 animate-slideInUp'
+          >
+            {slides[currentSlide].title}
+            <br />
+            {slides[currentSlide].subtitle}
+          </h1>
+        </div>
 
         {/* Slider controls container */}
         <div className='flex items-end space-x-8'>
@@ -115,13 +150,12 @@ const HeroBanner = (): React.ReactElement => {
                 </div>
               </div>
 
-              {/* Animated border SVG - positioned to cover the padding area */}
+              {/* Animated border SVG */}
               <svg
                 className='absolute inset-0 w-full h-full pointer-events-none'
                 viewBox='0 0 192 128'
                 fill='none'
               >
-                {/* Background border */}
                 <rect
                   x='4'
                   y='4'
@@ -132,7 +166,6 @@ const HeroBanner = (): React.ReactElement => {
                   rx='8'
                   fill='none'
                 />
-                {/* Animated progress border */}
                 <rect
                   x='4'
                   y='4'
@@ -178,6 +211,33 @@ const HeroBanner = (): React.ReactElement => {
           </div>
         </div>
       </div>
+
+      {/* Custom CSS animations */}
+      <style jsx>{`
+        @keyframes singleStripReveal {
+          0% {
+            transform: scaleY(0);
+          }
+          100% {
+            transform: scaleY(1);
+          }
+        }
+
+        @keyframes slideInUp {
+          0% {
+            transform: translateY(100%);
+            opacity: 0;
+          }
+          100% {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+
+        .animate-slideInUp {
+          animation: slideInUp 0.8s ease-out forwards;
+        }
+      `}</style>
     </section>
   );
 };
