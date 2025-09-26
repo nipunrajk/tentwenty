@@ -54,17 +54,17 @@ const ProductsAndClients = () => {
   }, []);
 
   // Mouse/Touch handlers for dragging
-  const handleMouseDown = (e) => {
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     setIsDragging(true);
     setStartX(e.clientX);
   };
 
-  const handleTouchStart = (e) => {
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     setIsDragging(true);
     setStartX(e.touches[0].clientX);
   };
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!isDragging) return;
 
     const currentX = e.clientX;
@@ -87,7 +87,7 @@ const ProductsAndClients = () => {
     }
   };
 
-  const handleTouchMove = (e) => {
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
     if (!isDragging) return;
 
     const currentX = e.touches[0].clientX;
@@ -114,20 +114,37 @@ const ProductsAndClients = () => {
 
   const handleTouchEnd = handleMouseUp;
 
+  // Wrapper functions for event listeners
+  const handleDocumentMouseMove = (e: MouseEvent) => {
+    handleMouseMove(e as unknown as React.MouseEvent<HTMLDivElement>);
+  };
+
+  const handleDocumentMouseUp = () => {
+    handleMouseUp();
+  };
+
+  const handleDocumentTouchMove = (e: TouchEvent) => {
+    handleTouchMove(e as unknown as React.TouchEvent<HTMLDivElement>);
+  };
+
+  const handleDocumentTouchEnd = () => {
+    handleTouchEnd();
+  };
+
   // Add global mouse/touch event listeners
   useEffect(() => {
     if (isDragging) {
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
-      document.addEventListener('touchmove', handleTouchMove);
-      document.addEventListener('touchend', handleTouchEnd);
+      document.addEventListener('mousemove', handleDocumentMouseMove);
+      document.addEventListener('mouseup', handleDocumentMouseUp);
+      document.addEventListener('touchmove', handleDocumentTouchMove as EventListener);
+      document.addEventListener('touchend', handleDocumentTouchEnd);
     }
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-      document.removeEventListener('touchmove', handleTouchMove);
-      document.removeEventListener('touchend', handleTouchEnd);
+      document.removeEventListener('mousemove', handleDocumentMouseMove);
+      document.removeEventListener('mouseup', handleDocumentMouseUp);
+      document.removeEventListener('touchmove', handleDocumentTouchMove as EventListener);
+      document.removeEventListener('touchend', handleDocumentTouchEnd);
     };
   }, [isDragging, startX]);
 

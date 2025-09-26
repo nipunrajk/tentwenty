@@ -6,7 +6,7 @@ const HeroBanner = (): React.ReactElement => {
   const [isTransitioning, setIsTransitioning] = React.useState(false);
   const [showIntro, setShowIntro] = React.useState(false);
 
-  // Luxury interior design images
+  // design images
   const slides = [
     {
       id: 1,
@@ -53,26 +53,24 @@ const HeroBanner = (): React.ReactElement => {
   const nextSlide = () => {
     setIsTransitioning(true);
 
-    // After transition completes, update slide and reset
+
     setTimeout(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
       setIsTransitioning(false);
       setProgress(0);
-    }, 1000); // Match transition duration
+    }, 1000);
   };
 
-  // Intro animation trigger
   React.useEffect(() => {
     const introTimer = setTimeout(() => {
       setShowIntro(true);
-    }, 500); // Start intro animation after 500ms
+    }, 500);
 
     return () => clearTimeout(introTimer);
   }, []);
 
-  // Progress animation and auto-advance
   React.useEffect(() => {
-    if (isTransitioning) return; // Don't update progress during transition
+    if (isTransitioning) return; 
 
     const interval = setInterval(() => {
       setProgress((prev) => {
@@ -82,18 +80,17 @@ const HeroBanner = (): React.ReactElement => {
           }, 100);
           return 0;
         }
-        return prev + 2; // Adjust speed by changing this value (2% every 100ms = 5s total)
+        return prev + 2; 
       });
     }, 100);
 
     return () => clearInterval(interval);
   }, [currentSlide, isTransitioning]);
 
-  // Calculate border stroke-dasharray and stroke-dashoffset for progress
+
   const borderLength = 2 * (184 + 120);
   const strokeDashoffset = borderLength - (borderLength * progress) / 100;
 
-  // Get next slide index for transition
   const nextSlideIndex = (currentSlide + 1) % slides.length;
 
   return (
@@ -104,7 +101,6 @@ const HeroBanner = (): React.ReactElement => {
         style={{ backgroundImage: `url('${slides[currentSlide].image}')` }}
       />
 
-      {/* Single strip reveal transition overlay */}
       {isTransitioning && (
         <div className='absolute inset-0 z-5'>
           <div
@@ -132,7 +128,6 @@ const HeroBanner = (): React.ReactElement => {
           Welcome to TenTwenty Farm
         </p>
 
-        {/* Main heading with intro scaling animation */}
         <div className='overflow-hidden'>
           <h1
             className={`text-6xl md:text-5xl max-w-lg font-extralight leading-tight mb-8 tracking-wider art-deco-heading transition-all duration-2000 ease-out ${
@@ -151,9 +146,7 @@ const HeroBanner = (): React.ReactElement => {
         >
           {/* Thumbnail with animated border */}
           <div className='relative'>
-            {/* Outer container for border */}
             <div className='relative w-48 h-32 p-3'>
-              {/* Inner image container */}
               <div className='w-full h-full rounded-md overflow-hidden relative bg-black/20'>
                 <img
                   src={slides[currentSlide].thumbnail}
@@ -161,13 +154,13 @@ const HeroBanner = (): React.ReactElement => {
                   className='w-full h-full object-cover'
                 />
 
-                {/* "Next" label overlay */}
+
                 <div className='absolute inset-0 bg-black/40 flex items-center justify-center'>
                   <span className='text-white font-medium text-lg'>Next</span>
                 </div>
               </div>
 
-              {/* Animated border SVG */}
+
               <svg
                 className='absolute inset-0 w-full h-full pointer-events-none'
                 viewBox='0 0 192 128'
@@ -202,7 +195,6 @@ const HeroBanner = (): React.ReactElement => {
               </svg>
             </div>
 
-            {/* Slide description */}
             <div className='mt-3 text-sm text-white/70'>
               {slides[currentSlide].description}
             </div>
@@ -214,7 +206,6 @@ const HeroBanner = (): React.ReactElement => {
               {String(currentSlide + 1).padStart(2, '0')}
             </span>
 
-            {/* Progress line */}
             <div className='w-24 h-px bg-white/30 relative'>
               <div
                 className='h-full bg-white transition-all duration-100 ease-linear'
