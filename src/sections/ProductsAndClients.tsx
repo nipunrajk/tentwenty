@@ -14,21 +14,21 @@ const ProductsAndClients = () => {
       id: 1,
       image:
         'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=600&fit=crop',
-      title: 'Luxury Residences',
-      location: 'Dubai, UAE',
+      title: 'Client 2',
+      location: 'New York, USA',
     },
     {
       id: 2,
       image:
         'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=600&fit=crop',
-      title: 'Premium Hotels',
-      location: 'London, UK',
+      title: 'Client 1',
+      location: 'Dubai, United Arab Emirates',
     },
     {
       id: 3,
       image:
         'https://images.unsplash.com/photo-1582037928769-181f2644ecb7?w=400&h=600&fit=crop',
-      title: 'Corporate Offices',
+      title: 'Client 3',
       location: 'New York, USA',
     },
   ];
@@ -145,7 +145,7 @@ const ProductsAndClients = () => {
             }`}
             style={{ fontFamily: 'Georgia, Times New Roman, serif' }}
           >
-            Our Portfolio
+            Quality Products
           </h2>
 
           {/* Animated Paragraph */}
@@ -156,11 +156,12 @@ const ProductsAndClients = () => {
                 : 'opacity-0 translate-y-12'
             }`}
           >
-            Discover our award-winning interior design projects that blend
-            luxury with functionality. From prestigious hotels to exclusive
-            residences, we create spaces that inspire and elevate the human
-            experience through thoughtful design and meticulous attention to
-            detail.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste
+            blanditiis dignissimos excepturi eius sunt at aliquam iusto facere
+            ab exercitationem pariatur provident illum repellat, necessitatibus
+            sint similique repudiandae? Consectetur recusandae similique
+            quibusdam quaerat ex magnam tenetur deserunt fuga voluptate
+            voluptas.
           </p>
         </div>
       </div>
@@ -196,19 +197,17 @@ const ProductsAndClients = () => {
           onTouchStart={handleTouchStart}
         >
           {/* Blue border container */}
-          <div className='p-4 md:p-6 border-4 border-blue-500 rounded-3xl bg-white shadow-2xl'>
-            <img
-              src={slides[currentSlide].image}
-              alt={slides[currentSlide].title}
-              className='w-80 h-96 md:w-96 md:h-[480px] lg:w-[400px] lg:h-[500px] object-cover rounded-2xl select-none'
-              draggable={false}
-            />
+          <img
+            src={slides[currentSlide].image}
+            alt={slides[currentSlide].title}
+            className='w-80 h-96 md:w-96 md:h-[480px] lg:w-[400px] lg:h-[500px] object-cover rounded-2xl select-none'
+            draggable={false}
+          />
 
-            {/* Drag indicator */}
-            <div className='absolute inset-0 flex items-center justify-center pointer-events-none'>
-              <div className='bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg'>
-                <span className='text-gray-800 font-medium'>Drag</span>
-              </div>
+          {/* Drag indicator */}
+          <div className='absolute inset-0 flex items-center justify-center pointer-events-none'>
+            <div className='bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg'>
+              <span className='text-gray-800 font-medium'>Drag</span>
             </div>
           </div>
         </div>
@@ -255,21 +254,6 @@ const ProductsAndClients = () => {
           >
             {slides[currentSlide].location}
           </p>
-        </div>
-
-        {/* Current slide indicator */}
-        <div className='flex justify-center mt-12 space-x-2'>
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentSlide
-                  ? 'bg-blue-500 w-8'
-                  : 'bg-gray-300 hover:bg-gray-400'
-              }`}
-              onClick={() => setCurrentSlide(index)}
-            />
-          ))}
         </div>
       </div>
 

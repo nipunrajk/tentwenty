@@ -129,17 +129,17 @@ const HeroBanner = (): React.ReactElement => {
             showIntro ? 'opacity-90 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
         >
-          Luxury Interior Design Studio
+          Welcome to TenTwenty Farm
         </p>
 
         {/* Main heading with intro scaling animation */}
         <div className='overflow-hidden'>
           <h1
-            className={`text-6xl md:text-7xl lg:text-8xl font-extralight leading-tight mb-8 tracking-wider art-deco-heading transition-all duration-2000 ease-out ${
+            className={`text-6xl md:text-5xl max-w-lg font-extralight leading-tight mb-8 tracking-wider art-deco-heading transition-all duration-2000 ease-out ${
               showIntro ? 'opacity-100 scale-100' : 'opacity-0 scale-75'
             }`}
           >
-            KCA International
+            From Our Farms To Your Hands
           </h1>
         </div>
 

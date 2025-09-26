@@ -17,7 +17,7 @@ const Header = () => {
               href='#portfolio'
               className='text-gray-700 hover:text-gray-900 font-light transition-colors duration-200 text-sm tracking-wide'
             >
-              Portfolio
+              News
             </a>
             <a
               href='#services'
@@ -35,14 +35,13 @@ const Header = () => {
               href='#contact'
               className='text-gray-700 hover:text-gray-900 font-light transition-colors duration-200 text-sm tracking-wide'
             >
-              Contact
+              Make Enquiry
             </a>
           </nav>
 
-          {/* Consultation Button */}
           <button className='flex items-center space-x-2 px-6 py-3 border border-gray-300 rounded-sm hover:bg-gray-50 hover:border-gray-400 transition-all duration-200 group'>
             <span className='text-gray-700 font-light text-sm tracking-wide'>
-              Free Consultation
+              Contact Us
             </span>
             <ArrowRight className='w-4 h-4 text-gray-600 group-hover:translate-x-0.5 transition-transform duration-200' />
           </button>
