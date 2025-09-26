@@ -206,7 +206,7 @@ const ProductsAndClients = () => {
 
           {/* Drag indicator */}
           <div className='absolute inset-0 flex items-center justify-center pointer-events-none'>
-            <div className='bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg'>
+            <div className='w-15 h-15 rounded-full bg-white flex items-center justify-center'>
               <span className='text-gray-800 font-medium'>Drag</span>
             </div>
           </div>
