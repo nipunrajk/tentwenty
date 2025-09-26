@@ -4,48 +4,49 @@ const HeroBanner = (): React.ReactElement => {
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const [progress, setProgress] = React.useState(0);
   const [isTransitioning, setIsTransitioning] = React.useState(false);
+  const [showIntro, setShowIntro] = React.useState(false);
 
-  // Sample farm images - replace with your actual images
+  // Luxury interior design images
   const slides = [
     {
       id: 1,
       image:
-        'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1920&h=1080&fit=crop',
+        'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920&h=1080&fit=crop',
       thumbnail:
-        'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400&h=300&fit=crop',
-      title: 'From Our Farms',
-      subtitle: 'To Your Hands',
-      description: 'Premium organic vegetables',
+        'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400&h=300&fit=crop',
+      title: 'Modern Luxury',
+      subtitle: 'Interior Design',
+      description: 'Contemporary living spaces',
     },
     {
       id: 2,
       image:
-        'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=1920&h=1080&fit=crop',
+        'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1920&h=1080&fit=crop',
       thumbnail:
-        'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400&h=300&fit=crop',
-      title: 'Fresh Harvest',
-      subtitle: 'Every Season',
-      description: 'Sustainable farming practices',
+        'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop',
+      title: 'Elegant Spaces',
+      subtitle: 'Refined Living',
+      description: 'Sophisticated architecture',
     },
     {
       id: 3,
       image:
-        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop',
+        'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1920&h=1080&fit=crop',
       thumbnail:
-        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop',
-      title: 'Quality Assured',
-      subtitle: 'Farm to Table',
-      description: 'Locally grown produce',
+        'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop',
+      title: 'Luxury Hotels',
+      subtitle: 'Premium Experience',
+      description: 'Five-star hospitality',
     },
     {
       id: 4,
       image:
-        'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1920&h=1080&fit=crop',
+        'https://images.unsplash.com/photo-1582037928769-181f2644ecb7?w=1920&h=1080&fit=crop',
       thumbnail:
-        'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&h=300&fit=crop',
-      title: 'Natural Growing',
-      subtitle: 'Pure & Organic',
-      description: 'Chemical-free cultivation',
+        'https://images.unsplash.com/photo-1582037928769-181f2644ecb7?w=400&h=300&fit=crop',
+      title: 'Architectural Excellence',
+      subtitle: 'Design Innovation',
+      description: 'Award-winning projects',
     },
   ];
 
@@ -59,6 +60,15 @@ const HeroBanner = (): React.ReactElement => {
       setProgress(0);
     }, 1000); // Match transition duration
   };
+
+  // Intro animation trigger
+  React.useEffect(() => {
+    const introTimer = setTimeout(() => {
+      setShowIntro(true);
+    }, 500); // Start intro animation after 500ms
+
+    return () => clearTimeout(introTimer);
+  }, []);
 
   // Progress animation and auto-advance
   React.useEffect(() => {
@@ -114,24 +124,31 @@ const HeroBanner = (): React.ReactElement => {
 
       <div className='relative z-20 flex flex-col justify-center items-start h-full text-white px-6 max-w-7xl mx-auto'>
         {/* Welcome text */}
-        <p className='text-lg font-light mb-4 opacity-90'>
-          Welcome To TwinTwenty Farms
+        <p
+          className={`text-lg font-light mb-4 tracking-wide transition-all duration-1000 ease-out ${
+            showIntro ? 'opacity-90 translate-y-0' : 'opacity-0 translate-y-4'
+          }`}
+        >
+          Luxury Interior Design Studio
         </p>
 
-        {/* Main heading with transition animation */}
+        {/* Main heading with intro scaling animation */}
         <div className='overflow-hidden'>
           <h1
-            key={currentSlide} // Key change triggers re-animation
-            className='text-6xl md:text-7xl lg:text-8xl font-bold leading-tight mb-8 animate-slideInUp'
+            className={`text-6xl md:text-7xl lg:text-8xl font-extralight leading-tight mb-8 tracking-wider art-deco-heading transition-all duration-2000 ease-out ${
+              showIntro ? 'opacity-100 scale-100' : 'opacity-0 scale-75'
+            }`}
           >
-            {slides[currentSlide].title}
-            <br />
-            {slides[currentSlide].subtitle}
+            KCA International
           </h1>
         </div>
 
         {/* Slider controls container */}
-        <div className='flex items-end space-x-8'>
+        <div
+          className={`flex items-end space-x-8 transition-all duration-1500 ease-out delay-500 ${
+            showIntro ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
           {/* Thumbnail with animated border */}
           <div className='relative'>
             {/* Outer container for border */}
@@ -213,7 +230,7 @@ const HeroBanner = (): React.ReactElement => {
       </div>
 
       {/* Custom CSS animations */}
-      <style jsx>{`
+      <style>{`
         @keyframes singleStripReveal {
           0% {
             transform: scaleY(0);
@@ -236,6 +253,12 @@ const HeroBanner = (): React.ReactElement => {
 
         .animate-slideInUp {
           animation: slideInUp 0.8s ease-out forwards;
+        }
+
+        .art-deco-heading {
+          font-family: 'Georgia', 'Times New Roman', serif;
+          text-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+          letter-spacing: 0.05em;
         }
       `}</style>
     </section>

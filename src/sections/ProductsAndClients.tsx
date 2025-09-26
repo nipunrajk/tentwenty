@@ -8,28 +8,28 @@ const ProductsAndClients = () => {
   const [dragOffset, setDragOffset] = useState(0);
   const sectionRef = useRef(null);
 
-  // Sample data - replace with your actual content
+  // Interior design portfolio
   const slides = [
     {
       id: 1,
       image:
-        'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&h=600&fit=crop',
-      title: 'Premium Organic',
-      location: 'Kerala, India',
+        'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=600&fit=crop',
+      title: 'Luxury Residences',
+      location: 'Dubai, UAE',
     },
     {
       id: 2,
       image:
-        'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400&h=600&fit=crop',
-      title: 'Fresh Harvest',
-      location: 'Tamil Nadu, India',
+        'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=600&fit=crop',
+      title: 'Premium Hotels',
+      location: 'London, UK',
     },
     {
       id: 3,
       image:
-        'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400&h=600&fit=crop',
-      title: 'Quality Assured',
-      location: 'Karnataka, India',
+        'https://images.unsplash.com/photo-1582037928769-181f2644ecb7?w=400&h=600&fit=crop',
+      title: 'Corporate Offices',
+      location: 'New York, USA',
     },
   ];
 
@@ -138,27 +138,29 @@ const ProductsAndClients = () => {
         {/* Animated Title */}
         <div className='text-center mb-16'>
           <h2
-            className={`text-5xl md:text-6xl font-bold text-gray-900 mb-8 transition-all duration-1000 ease-out ${
+            className={`text-5xl md:text-6xl font-extralight text-gray-900 mb-8 transition-all duration-1000 ease-out tracking-wide ${
               isVisible
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-12'
             }`}
+            style={{ fontFamily: 'Georgia, Times New Roman, serif' }}
           >
-            Quality Products
+            Our Portfolio
           </h2>
 
           {/* Animated Paragraph */}
           <p
-            className={`text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed transition-all duration-1000 ease-out delay-300 ${
+            className={`text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed transition-all duration-1000 ease-out delay-300 font-light tracking-wide ${
               isVisible
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-12'
             }`}
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+            Discover our award-winning interior design projects that blend
+            luxury with functionality. From prestigious hotels to exclusive
+            residences, we create spaces that inspire and elevate the human
+            experience through thoughtful design and meticulous attention to
+            detail.
           </p>
         </div>
       </div>
